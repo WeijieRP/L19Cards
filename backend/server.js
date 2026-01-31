@@ -42,6 +42,7 @@ app.use(express.json());
 ========================= */
 const allowedOrigins = [
   "http://localhost:3000",
+//   process.env.REACT_APP_API_URL,
   FRONTEND_URL
 ].filter(Boolean);
 
@@ -70,9 +71,10 @@ const db = mysql.createPool({
   waitForConnections: true,
   connectionLimit: 10,
   ssl: {
-    rejectUnauthorized: true // ✅ Aiven requires SSL
+    rejectUnauthorized: false
   }
 });
+
 
 /* =========================
    Helpers
