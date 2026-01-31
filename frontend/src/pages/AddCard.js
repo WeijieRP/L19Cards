@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch, readJsonSafe } from "../services/api";
-import CardForm from "../components/CardForm";
+import CardForm from "../components/CardForm"; // ✅ default import
 
 export default function AddCard() {
   const nav = useNavigate();
@@ -11,16 +11,13 @@ export default function AddCard() {
   async function onSubmit(payload) {
     setErr("");
     setBusy(true);
-
     try {
       const res = await apiFetch("/api/addcard", {
         method: "POST",
         body: JSON.stringify(payload),
       });
-
       const json = await readJsonSafe(res);
       if (!res.ok) throw new Error(json?.error || `Add failed (${res.status})`);
-
       nav("/cards");
     } catch (e) {
       setErr(String(e.message || e));
